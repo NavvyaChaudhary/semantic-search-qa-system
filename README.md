@@ -1,6 +1,6 @@
 # Semantic Document Search & QA System
 
-**Made by:** Navvya Chaudhary
+**Author:** Navvya Chaudhary
 **Program:** BTech CSE (Data Science & AI)
 **Type:** Live Project
 
@@ -8,7 +8,7 @@
 
 ## What This Project Does
 
-This is a document search system that actually understands what you're asking, not just what words you typed.
+This is a document search system that understands the semantic meaning of user queries, not just what words you typed.
 
 You upload a PDF, TXT, or Word file. You type a question. The system reads through your document and returns the most relevant sections — ranked by how closely they match the meaning of your question, not just whether they share the same keywords.
 
@@ -33,7 +33,7 @@ For example, if your document talks about "neural networks learning from labelle
 ## Project Structure
 
 ```
-semsearch/
+semantic-search-qa-system/
 │
 ├── streamlit_app.py          # The entire frontend — UI, file upload, results display
 │
@@ -98,7 +98,7 @@ Regular keyword search only finds exact word matches. If the document uses diffe
 
 ```bash
 # 1. Clone or download the project
-cd semsearch
+cd semantic-search-qa-system/
 
 # 2. Create a virtual environment (keeps packages isolated)
 python3 -m venv venv
@@ -135,6 +135,16 @@ The app gets a public URL. Java doesn't run on Streamlit Cloud, but the app work
 
 ---
 
+## Key Features
+
+- Semantic search based on meaning, not keywords
+- Supports PDF, TXT, and DOCX files
+- Displays top relevant results with similarity scores
+- Uses sentence embeddings for accurate retrieval
+- Simple and interactive Streamlit interface
+
+---
+
 ## Known Limitations
 
 - The model runs on CPU, so indexing a large document (50+ pages) takes a few seconds
@@ -153,5 +163,7 @@ The app gets a public URL. Java doesn't run on Streamlit Cloud, but the app work
 - Add highlighting to show which exact sentence within a chunk matched the query
 
 ---
+
+This project demonstrates the practical application of NLP, embeddings, and semantic search in building intelligent document retrieval systems.
 
 *BTech CSE (DSAI) Live Project — Navvya Chaudhary*
