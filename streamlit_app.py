@@ -123,4 +123,4 @@ else:
                 """, unsafe_allow_html=True)
 
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
-st.caption("Semantic Search · Navvya Chaudhary · BTech CSE (DSAI) · all-MiniLM-L6-v2")
+st.caption("Semantic Search · Navvya Chaudhary · BTech CSE (DSAI) · TF-IDF Vectorizer")
