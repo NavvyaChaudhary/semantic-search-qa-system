@@ -5,7 +5,7 @@ from sentence_transformers import SentenceTransformer
 
 def load_model():
     # Stronger model - better context understanding than MiniLM
-    return SentenceTransformer("all-mpnet-base-v2")
+    return SentenceTransformer("all-MiniLM-L6-v2")
 
 
 # ── Text extraction ──
@@ -102,6 +102,7 @@ def build_index(file_paths, model):
     index = []
     for path in file_paths:
         text = clean(extract_text(path))
+        text = text[:20000]
         if not text:
             continue
         pieces = chunk(text)
