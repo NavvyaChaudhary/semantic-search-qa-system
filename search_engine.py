@@ -98,19 +98,36 @@ def mmr(query_emb, candidates, top_n, lambda_=0.7):
 
 def build_index(file_paths, model):
     index = []
+    all_chunks = []
+    file_map = []
+
     for path in file_paths:
         text = clean(extract_text(path))
         text = text[:20000]
         if not text:
             continue
+
         pieces = chunk(text)
-        embeddings = model.fit_transform(pieces).toarray()
-        for piece, emb in zip(pieces, embeddings):
-            index.append({
-                "filename": os.path.basename(path),
-                "chunk_text": piece,
-                "embedding": emb
-            })
+        for p in pieces:
+            all_chunks.append(p)
+            file_map.append(os.path.basename(path))
+            
+    all_chunks = all_chunks[:300]  # LIMIT TOTAL CHUNKS
+    file_map = file_map[:300]
+
+    if not all_chunks:
+        return []
+
+    # 🔥 FIT ONLY ONCE
+    embeddings = model.fit_transform(all_chunks).toarray()
+
+    for piece, emb, fname in zip(all_chunks, embeddings, file_map):
+        index.append({
+            "filename": fname,
+            "chunk_text": piece,
+            "embedding": emb
+        })
+
     return index
 
 
