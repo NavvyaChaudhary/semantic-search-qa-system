@@ -49,6 +49,9 @@ with st.sidebar:
     )
 
     if st.button("Index Documents", use_container_width=True):
+        if files and len(files) > 3:
+            st.warning("Please upload a maximum of 3 files for better performance.")
+            st.stop()
         if not files:
             st.warning("Upload at least one file.")
         else:
