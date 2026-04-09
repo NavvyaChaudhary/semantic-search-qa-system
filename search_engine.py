@@ -49,7 +49,7 @@ def split_sentences(text):
     sentences = re.split(r'(?<=[.!?])\s+', text)
     return [s.strip() for s in sentences if len(s.strip()) > 20]
 
-def chunk(text, max_words=150, overlap_sentences=2):
+def chunk(text, max_words=100, overlap_sentences=1):
     sentences = split_sentences(text)
     chunks = []
     i = 0
