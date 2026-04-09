@@ -1,11 +1,9 @@
 import os, re, sys, json
 import numpy as np
-from sentence_transformers import SentenceTransformer
-
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 def load_model():
-    # Stronger model - better context understanding than MiniLM
-    return SentenceTransformer("all-MiniLM-L6-v2")
+    return TfidfVectorizer(stop_words='english')
 
 
 # ── Text extraction ──
@@ -106,7 +104,7 @@ def build_index(file_paths, model):
         if not text:
             continue
         pieces = chunk(text)
-        embeddings = model.encode(pieces, show_progress_bar=False, batch_size=32)
+        embeddings = model.fit_transform(pieces).toarray()
         for piece, emb in zip(pieces, embeddings):
             index.append({
                 "filename": os.path.basename(path),
@@ -121,7 +119,7 @@ def build_index(file_paths, model):
 # Step 2: re-rank with MMR -> diverse + accurate final results
 
 def semantic_search(query, index, model, top_n=5):
-    q_emb = model.encode([query], show_progress_bar=False)[0]
+    q_emb = model.transform([query]).toarray()[0]
     scored = sorted(index, key=lambda x: cosine(q_emb, x["embedding"]), reverse=True)
     candidates = scored[:min(20, len(index))]
     final = mmr(q_emb, candidates, top_n)
