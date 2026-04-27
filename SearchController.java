@@ -11,7 +11,7 @@ import java.util.*;
 public class SearchController {
 
 
-    private static final String PYTHON_SCRIPT = "/Users/aryansahrawat/Documents/SDS-QA/search_engine.py";
+    private static final String PYTHON_SCRIPT = "/Users/navvyachaudhary/Documents/SDS-QA/search_engine.py";
 
     @PostMapping("/search")
     public ResponseEntity<String> search(@RequestBody Map<String, Object> body) {
