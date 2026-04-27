@@ -10,8 +10,8 @@ import java.util.*;
 @RequestMapping("/api")
 public class SearchController {
 
-    // Update this to the absolute path of search_engine.py on your machine
-    private static final String PYTHON_SCRIPT = "../python_engine/search_engine.py";
+
+    private static final String PYTHON_SCRIPT = "/Users/aryansahrawat/Documents/SDS-QA/search_engine.py";
 
     @PostMapping("/search")
     public ResponseEntity<String> search(@RequestBody Map<String, Object> body) {
