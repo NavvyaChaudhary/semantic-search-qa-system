@@ -118,7 +118,7 @@ def build_index(file_paths, model):
     if not all_chunks:
         return []
 
-    # 🔥 FIT ONLY ONCE
+    # FIT ONLY ONCE
     embeddings = model.fit_transform(all_chunks).toarray()
 
     for piece, emb, fname in zip(all_chunks, embeddings, file_map):
