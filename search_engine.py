@@ -6,7 +6,7 @@ def load_model():
     return TfidfVectorizer(stop_words='english')
 
 
-# ── Text extraction ──
+# Text extraction
 
 def read_txt(path):
     with open(path, "r", encoding="utf-8", errors="ignore") as f:
@@ -31,7 +31,7 @@ def extract_text(path):
     return ""
 
 
-# ── Preprocessing ──
+# Preprocessing
 
 def clean(text):
     text = re.sub(r'\s+', ' ', text)
@@ -39,9 +39,7 @@ def clean(text):
     return text.strip()
 
 
-# ── Sentence-aware chunking ──
-# Old way: split every N words blindly -> cuts sentences mid-way, loses meaning
-# New way: split into sentences first, then group them -> meaning stays intact
+# Sentence-aware chunking
 
 def split_sentences(text):
     sentences = re.split(r'(?<=[.!?])\s+', text)
@@ -63,18 +61,14 @@ def chunk(text, max_words=100, overlap_sentences=1):
     return chunks
 
 
-# ── Cosine similarity ──
+# Cosine similarity
 
 def cosine(a, b):
     denom = np.linalg.norm(a) * np.linalg.norm(b)
     return float(np.dot(a, b) / denom) if denom else 0.0
 
 
-# ── MMR (Maximal Marginal Relevance) re-ranking ──
-# Problem: plain cosine top-5 often returns near-identical chunks (repetitive)
-# MMR fixes this: balances relevance to query vs diversity from each other
-# lambda_=0.7 means 70% relevance + 30% diversity (tunable)
-
+# MMR (Maximal Marginal Relevance) re-ranking
 def mmr(query_emb, candidates, top_n, lambda_=0.7):
     if not candidates:
         return []
@@ -94,7 +88,7 @@ def mmr(query_emb, candidates, top_n, lambda_=0.7):
     return [candidates[i] for i in selected]
 
 
-# ── Build index ──
+# Build index
 
 def build_index(file_paths, model):
     index = []
@@ -131,9 +125,7 @@ def build_index(file_paths, model):
     return index
 
 
-# ── Search ──
-# Step 1: top 20 candidates by cosine (wide net)
-# Step 2: re-rank with MMR -> diverse + accurate final results
+# Search
 
 def semantic_search(query, index, model, top_n=5):
     q_emb = model.transform([query]).toarray()[0]
@@ -148,7 +140,7 @@ def semantic_search(query, index, model, top_n=5):
     ]
 
 
-# ── CLI entry point (called by Java) ──
+# CLI entry point (called by Java)
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
