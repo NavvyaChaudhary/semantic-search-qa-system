@@ -28,7 +28,7 @@ h3 { color: #8b949e !important; font-weight: 400 !important; font-size: 0.85rem 
 </style>
 """, unsafe_allow_html=True)
 
-# --- Session state setup ---
+# Session state setup
 if "index" not in st.session_state:
     st.session_state.index = []
 if "model" not in st.session_state:
@@ -38,7 +38,7 @@ if "model" not in st.session_state:
 def get_model():
     return load_model()
 
-# --- Sidebar ---
+# Sidebar
 with st.sidebar:
     st.markdown("### 📁 Upload Documents")
     files = st.file_uploader(
@@ -80,7 +80,7 @@ with st.sidebar:
             st.session_state.index = []
             st.rerun()
 
-# --- Main page ---
+# Main page
 st.markdown("# 🔍 Semantic Search")
 st.markdown("### Navvya Chaudhary · BTech CSE (DSAI)")
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
